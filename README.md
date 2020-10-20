@@ -45,11 +45,14 @@ const slides = [
   }
 ];
 
-export default class App extends React.Component {
-  this.state = {
-    showRealApp: false
-  }
-  _renderItem = ({ item }) => {
+const App = (props : any) => {
+  
+
+  const [showRealApp, setShowRealApp] = useState(false)
+
+
+
+  const _renderItem = ({ item }) => {
     return (
       <View style={styles.slide}>
         <Text style={styles.title}>{item.title}</Text>
@@ -58,19 +61,27 @@ export default class App extends React.Component {
       </View>
     );
   }
-  _onDone = () => {
+  const _onDone = () => {
     // User finished the introduction. Show real app through
     // navigation or simply by controlling state
-    this.setState({ showRealApp: true });
-  }
-  render() {
-    if (this.state.showRealApp) {
+    setShowRealApp(true);
+      }
+ 
+ 
+ {
+    if (showRealApp == true) {
       return <App />;
     } else {
-      return <AppIntroSlider renderItem={this._renderItem} data={slides} onDone={this._onDone}/>;
+      return 
+      <AppIntroSlider 
+      renderItem={_renderItem} 
+      data={slides} 
+      onDone={_onDone}/>;
     }
   }
 }
+
+export default App;
 ```
 
 ### Configuring buttons
@@ -97,8 +108,8 @@ const styles = StyleSheet.create({
 
 // slides = [...]
 
-export default class App extends React.Component {
-  _renderItem = ({ item }) => {
+
+const _renderItem = ({ item }) => {
     return (
       <View style={styles.slide}>
         <Text style={styles.title}>{item.title}</Text>
@@ -107,7 +118,7 @@ export default class App extends React.Component {
       </View>
     );
   }
-  _renderNextButton = () => {
+ const _renderNextButton = () => {
     return (
       <View style={styles.buttonCircle}>
         <Icon
@@ -118,7 +129,7 @@ export default class App extends React.Component {
       </View>
     );
   };
-  _renderDoneButton = () => {
+  const _renderDoneButton = (props: any) => {
     return (
       <View style={styles.buttonCircle}>
         <Icon
@@ -129,15 +140,16 @@ export default class App extends React.Component {
       </View>
     );
   };
-  render() {
+  
     return (
       <AppIntroSlider
         data={slides}
-        renderDoneButton={this._renderDoneButton}
-        renderNextButton={this._renderNextButton}
+        renderItem={_renderItem} 
+        renderDoneButton={_renderDoneButton}
+        renderNextButton={_renderNextButton}
       />
     );
-  }
+ 
 }
 ```
 
